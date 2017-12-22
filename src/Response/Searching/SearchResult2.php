@@ -18,7 +18,7 @@ class SearchResult2 extends SubsonicResponse {
       $data = $data['searchResult2'];
 
       foreach (['artist' => Artist::class, 'album' => Album::class, 'song' => Song::class] as $key => $class) {
-         if (\is_array($data[$key])) {
+         if (array_key_exists($key, $data) && \is_array($data[$key])) {
             $this->$key = array_map(function (array $item) use ($class) {
                return new $class($item, false);
             }, $data[$key]);
