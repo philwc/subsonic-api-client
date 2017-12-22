@@ -34,16 +34,16 @@ Use `getAvailableFields()`, `getRequiredFields()`, `getResponseClass()` as appro
 
 Currently, the following calls are implemented:
 
-####Playlist
+#### Playlist
 - CreatePlaylist
 - DeletePlaylist
 - GetPlaylist
 - GetPlaylists
 - UpdatePlaylist
 
-####Searching
+#### Searching
 - Search2
 
-####System
+#### System
 - GetLicense
 - Ping
