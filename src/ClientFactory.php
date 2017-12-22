@@ -19,14 +19,18 @@ class ClientFactory {
    /**
     * @param string $class
     * @param Configuration $configuration
+    * @param \GuzzleHttp\ClientInterface|null $client
     * @return ClientInterface
     */
-   public static function get(string $class, Configuration $configuration = null): ClientInterface {
+   public static function get(string $class, Configuration $configuration = null, \GuzzleHttp\ClientInterface $client = null): ClientInterface {
       if ($configuration === null) {
          $configuration = self::$configuration;
       }
 
-      $client = new Client();
+      if ($client === null) {
+         $client = new Client();
+      }
+
       $token = TokenFactory::get($configuration->getUsername(), $configuration->getPassword());
 
       return new $class($client, $token, $configuration->getUrl());
