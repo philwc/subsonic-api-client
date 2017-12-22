@@ -1,6 +1,7 @@
 {
   "name": "philwc/subsonic-api-client",
   "type": "library",
+  "license": "MIT",
   "require": {
     "guzzlehttp/guzzle": "^6.3"
   },
