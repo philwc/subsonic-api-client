@@ -12,6 +12,7 @@ abstract class Client implements ClientInterface {
    const RETURN_FORMAT = 'json';
    const CLIENT_APPLICATION = 'app_name';
    const API_VERSION = '1.13.0';
+   const SPECIAL_HANDLING_PARAMS = ['songId'];
 
    /**
     * @var \GuzzleHttp\Client
@@ -36,7 +37,7 @@ abstract class Client implements ClientInterface {
     */
    public function __construct(\GuzzleHttp\Client $client, Token $token, string $baseUrl) {
       $this->client = $client;
-      $this->baseUrl = $baseUrl . '/rest';
+      $this->baseUrl = rtrim($baseUrl, '/') . '/rest';
       $this->baseParams = [
          'u' => $token->getUsername(),
          't' => $token->getToken(),
@@ -59,7 +60,7 @@ abstract class Client implements ClientInterface {
       $this->validateParams($params);
 
       $response = $this->client->get($url, [
-         RequestOptions::QUERY => array_replace($this->baseParams, $params),
+         RequestOptions::QUERY => $this->buildQueryString(array_replace($this->baseParams, $params)),
          //RequestOptions::DEBUG => true,
       ]);
 
@@ -68,6 +69,34 @@ abstract class Client implements ClientInterface {
       $class = $this->getResponseClass();
 
       return new $class($data);
+   }
+
+   /**
+    * Special url encoding provision for 'special parameters'
+    * @param array $params
+    * @return string
+    */
+   private function buildQueryString(array $params): string {
+      $queryAppend = '';
+
+      foreach (self::SPECIAL_HANDLING_PARAMS as $specialParam) {
+         if (array_key_exists($specialParam, $params)) {
+            /** @var array $specialParamValues */
+            $specialParamValues = $params[$specialParam];
+
+            if (!\is_array($specialParamValues)) {
+               $specialParamValues = [$specialParamValues];
+            }
+
+            unset($params[$specialParam]);
+
+            foreach ($specialParamValues as $specialParamValue) {
+               $queryAppend .= '&' . $specialParam . '=' . $specialParamValue;
+            }
+         }
+      }
+
+      return http_build_query($params) . $queryAppend;
    }
 
    /**
