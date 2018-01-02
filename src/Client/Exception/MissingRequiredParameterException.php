@@ -2,5 +2,6 @@
 
 namespace philwc\Client\Exception;
 
-class MissingRequiredParameterException extends \Exception {
+class MissingRequiredParameterException extends \Exception
+{
 }
