@@ -12,7 +12,7 @@ class SearchResult2 extends SubsonicResponse {
    /**
     * @param array $data
     */
-   protected function parse(array $data) {
+   protected function parse(array $data): void {
       $this->version = $data['version'];
       $this->status = $data['status'];
       $data = $data['searchResult2'];
@@ -29,21 +29,21 @@ class SearchResult2 extends SubsonicResponse {
    /**
     * @return array
     */
-   public function getArtists() {
+   public function getArtists(): array {
       return $this->artist;
    }
 
    /**
     * @return array
     */
-   public function getAlbums() {
+   public function getAlbums(): array {
       return $this->album;
    }
 
    /**
     * @return array
     */
-   public function getSongs() {
+   public function getSongs(): array {
       return $this->song;
    }
 }

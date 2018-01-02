@@ -25,6 +25,7 @@ class TokenFactory {
          try {
             $str .= $keyspace[random_int(0, $max)];
          } catch (\Exception $e) {
+            //noop
          }
       }
 

@@ -17,8 +17,9 @@ class Playlists extends SubsonicResponse {
 
    /**
     * @param array $data
+    * @throws \philwc\Response\BadResponseException
     */
-   protected function parse(array $data) {
+   protected function parse(array $data): void {
       if (\is_array($data['playlists']) && array_key_exists('playlist', $data['playlists'])) {
          $this->playlist = array_map(function (array $item) {
             return new Playlist($item, false);

@@ -82,11 +82,7 @@ abstract class Client implements ClientInterface {
       foreach (self::SPECIAL_HANDLING_PARAMS as $specialParam) {
          if (array_key_exists($specialParam, $params)) {
             /** @var array $specialParamValues */
-            $specialParamValues = $params[$specialParam];
-
-            if (!\is_array($specialParamValues)) {
-               $specialParamValues = [$specialParamValues];
-            }
+            $specialParamValues = (array)$params[$specialParam];
 
             unset($params[$specialParam]);
 

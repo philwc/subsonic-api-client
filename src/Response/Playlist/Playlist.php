@@ -15,7 +15,7 @@ class Playlist extends SubsonicResponse {
    protected $changed;
    protected $coverArt;
 
-   protected function parse(array $data) {
+   protected function parse(array $data): void {
 
       if (array_key_exists('playlist', $data)) {
          $this->status = $data['status'];

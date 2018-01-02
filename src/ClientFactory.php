@@ -12,7 +12,7 @@ class ClientFactory {
    /**
     * @param Configuration $configuration
     */
-   public static function setConfiguration(Configuration $configuration) {
+   public static function setConfiguration(Configuration $configuration): void {
       self::$configuration = $configuration;
    }
 
